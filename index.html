@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Sistema de Cadastro de Projetos de Pesquisa - Gerencie projetos científicos com objetivos, cronogramas e resultados">
+    <meta name="author" content="Instituto de Pesquisa">
+    <title>Sistema de Projetos de Pesquisa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Skip Link para Acessibilidade -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <div class="page-wrapper">
+        <!-- Header / Navegação -->
+        <header class="header" role="banner">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <div class="logo-icon" aria-hidden="true">🔬</div>
+                        <div>
+                            <span class="logo-text">Projetos de Pesquisa</span>
+                            <span class="logo-subtitle">Sistema de Gestão Acadêmica</span>
+                        </div>
+                    </div>
+
+                    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir menu de navegação"
+                        aria-expanded="false">
+                        ☰
+                    </button>
+
+                    <nav aria-label="Navegação principal">
+                        <ul class="nav-menu" role="menubar">
+                            <li role="none">
+                                <a href="index.html" class="nav-link active" role="menuitem" aria-current="page">
+                                    📊 Dashboard
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a href="#" class="nav-link" role="menuitem"
+                                    onclick="openProjectModal(); return false;">
+                                    ➕ Novo Projeto
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="user-info">
+                        <div class="user-avatar" aria-hidden="true">A</div>
+                        <span>Administrador</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <main id="main-content" class="main-content">
+            <div class="container">
+                <!-- Container para alertas -->
+                <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+                <!-- Estatísticas -->
+                <section aria-labelledby="stats-heading">
+                    <h2 id="stats-heading" class="visually-hidden">Estatísticas dos Projetos</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon blue" aria-hidden="true">📁</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="statTotal">0</div>
+                                <div class="stat-label">Total de Projetos</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon yellow" aria-hidden="true">🔄</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="statAndamento">0</div>
+                                <div class="stat-label">Em Andamento</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon green" aria-hidden="true">✅</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="statConcluidos">0</div>
+                                <div class="stat-label">Concluídos</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon cyan" aria-hidden="true">📋</div>
+                            <div class="stat-content">
+                                <div class="stat-value" id="statPlanejados">0</div>
+                                <div class="stat-label">Planejados</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cabeçalho e Filtros -->
+                <section aria-labelledby="projects-heading">
+                    <div class="projects-header">
+                        <div>
+                            <h1 id="projects-heading" class="projects-title">Meus Projetos</h1>
+                            <p class="projects-count" id="projectsCount">Carregando...</p>
+                        </div>
+                        <button class="btn btn-success" onclick="openProjectModal()">
+                            ➕ Novo Projeto
+                        </button>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="filters-bar" role="search" aria-label="Filtrar projetos">
+                        <div class="search-input-wrapper">
+                            <span class="search-icon" aria-hidden="true">🔍</span>
+                            <input type="search" id="searchInput" class="form-input" placeholder="Buscar projetos..."
+                                aria-label="Buscar por título, descrição ou responsável">
+                        </div>
+                        <select id="filterStatus" class="form-select filter-select" aria-label="Filtrar por status">
+                            <option value="">Todos os Status</option>
+                            <option value="planejado">Planejado</option>
+                            <option value="em_andamento">Em Andamento</option>
+                            <option value="concluido">Concluído</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
+                        <select id="filterArea" class="form-select filter-select" aria-label="Filtrar por área">
+                            <option value="">Todas as Áreas</option>
+                            <option value="Ciência de Dados">Ciência de Dados</option>
+                            <option value="Biomedicina">Biomedicina</option>
+                            <option value="Engenharia">Engenharia</option>
+                            <option value="Educação">Educação</option>
+                            <option value="Biologia">Biologia</option>
+                            <option value="Física">Física</option>
+                            <option value="Química">Química</option>
+                            <option value="Ciências Sociais">Ciências Sociais</option>
+                        </select>
+                    </div>
+
+                    <!-- Grid de Projetos -->
+                    <div class="projects-grid" id="projectsContainer" aria-live="polite">
+                        <!-- Projetos serão inseridos via JavaScript -->
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer" role="contentinfo">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Sobre o Sistema</h3>
+                        <p>Sistema desenvolvido para gestão e acompanhamento de projetos de pesquisa científica,
+                            facilitando o registro de objetivos, cronogramas e resultados.</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Links Úteis</h3>
+                        <ul>
+                            <li><a href="#">Documentação</a></li>
+                            <li><a href="#">Suporte Técnico</a></li>
+                            <li><a href="#">Políticas de Uso</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Contato</h3>
+                        <ul>
+                            <li>📧 contato@pesquisa.edu.br</li>
+                            <li>📞 (11) 1234-5678</li>
+                            <li>📍 Av. da Ciência, 1000</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>© 2024 Instituto de Pesquisa. Todos os direitos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal: Novo/Editar Projeto -->
+    <div class="modal-overlay" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title">Novo Projeto</h2>
+                <button class="modal-close" onclick="closeProjectModal()" aria-label="Fechar modal">&times;</button>
+            </div>
+            <form id="projectForm" onsubmit="handleProjectSubmit(event)" novalidate>
+                <div class="modal-body">
+                    <input type="hidden" id="projectId">
+
+                    <div class="form-group">
+                        <label for="projectTitulo" class="form-label">
+                            Título do Projeto <span class="required">*</span>
+                        </label>
+                        <input type="text" id="projectTitulo" class="form-input"
+                            placeholder="Ex: Análise de Dados Climáticos" required minlength="5" maxlength="200">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectDescricao" class="form-label">
+                            Descrição <span class="required">*</span>
+                        </label>
+                        <textarea id="projectDescricao" class="form-textarea"
+                            placeholder="Descreva o projeto de forma detalhada..." required minlength="20"
+                            maxlength="1000"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectObjetivos" class="form-label">
+                            Objetivos
+                        </label>
+                        <textarea id="projectObjetivos" class="form-textarea"
+                            placeholder="Liste os principais objetivos do projeto..." maxlength="500"></textarea>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="projectResponsavel" class="form-label">
+                                Responsável <span class="required">*</span>
+                            </label>
+                            <input type="text" id="projectResponsavel" class="form-input"
+                                placeholder="Nome do responsável" required maxlength="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectArea" class="form-label">
+                                Área de Pesquisa <span class="required">*</span>
+                            </label>
+                            <select id="projectArea" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                <option value="Ciência de Dados">Ciência de Dados</option>
+                                <option value="Biomedicina">Biomedicina</option>
+                                <option value="Engenharia">Engenharia</option>
+                                <option value="Educação">Educação</option>
+                                <option value="Biologia">Biologia</option>
+                                <option value="Física">Física</option>
+                                <option value="Química">Química</option>
+                                <option value="Ciências Sociais">Ciências Sociais</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="projectDataInicio" class="form-label">
+                                Data de Início <span class="required">*</span>
+                            </label>
+                            <input type="date" id="projectDataInicio" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectDataFim" class="form-label">
+                                Previsão de Término
+                            </label>
+                            <input type="date" id="projectDataFim" class="form-input">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-md);">
+                        <div class="form-group">
+                            <label for="projectStatus" class="form-label">
+                                Status <span class="required">*</span>
+                            </label>
+                            <select id="projectStatus" class="form-select" required>
+                                <option value="planejado">Planejado</option>
+                                <option value="em_andamento">Em Andamento</option>
+                                <option value="concluido">Concluído</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="projectFinanciamento" class="form-label">
+                                Financiamento
+                            </label>
+                            <input type="text" id="projectFinanciamento" class="form-input"
+                                placeholder="Ex: R$ 100.000,00" maxlength="50">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectResultados" class="form-label">
+                            Resultados Obtidos
+                        </label>
+                        <textarea id="projectResultados" class="form-textarea"
+                            placeholder="Descreva os resultados alcançados até o momento..."
+                            maxlength="1000"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeProjectModal()">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        💾 Salvar Projeto
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal: Visualizar Projeto -->
+    <div class="modal-overlay" id="viewModal" role="dialog" aria-modal="true" aria-labelledby="viewTitle">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2 id="viewTitle" class="modal-title">Detalhes do Projeto</h2>
+                <button class="modal-close" onclick="closeViewModal()" aria-label="Fechar modal">&times;</button>
+            </div>
+            <div class="modal-body" id="viewContent">
+                <!-- Conteúdo inserido via JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeViewModal()">
+                    Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login - Sistema de Cadastro de Projetos de Pesquisa">
+    <meta name="author" content="Instituto de Pesquisa">
+    <title>Login - Sistema de Projetos de Pesquisa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Skip Link para Acessibilidade -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <!-- Header do Formulário -->
+                <div class="auth-header">
+                    <div class="auth-logo" aria-hidden="true">🔬</div>
+                    <h1 class="auth-title">Bem-vindo</h1>
+                    <p class="auth-subtitle">Acesse o Sistema de Projetos de Pesquisa</p>
+                </div>
+
+                <!-- Conteúdo Principal -->
+                <main id="main-content" class="auth-body">
+                    <!-- Container para alertas -->
+                    <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+                    <!-- Formulário de Login -->
+                    <form id="loginForm" class="auth-form" novalidate>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon" aria-hidden="true">📧</span>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-input"
+                                    placeholder="seu.email@instituicao.com"
+                                    required
+                                    aria-label="Email"
+                                    autocomplete="email"
+                                >
+                            </div>
+                            <div class="form-error">Por favor, insira um email válido</div>
+                        </div>
+
+                        <!-- Senha -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                Senha <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper password-wrapper">
+                                <span class="input-icon" aria-hidden="true">🔒</span>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-input"
+                                    placeholder="Digite sua senha"
+                                    required
+                                    aria-label="Senha"
+                                    autocomplete="current-password"
+                                >
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="passwordToggle"
+                                    aria-label="Mostrar senha"
+                                    onclick="togglePasswordVisibility()"
+                                >
+                                    👁️
+                                </button>
+                            </div>
+                            <div class="form-error">A senha é obrigatória</div>
+                        </div>
+
+                        <!-- Lembrar-me -->
+                        <div class="form-group">
+                            <label class="form-checkbox">
+                                <input type="checkbox" id="remember" name="remember">
+                                <span class="form-checkbox-label">Manter-me conectado</span>
+                            </label>
+                        </div>
+
+                        <!-- Botão Submit -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-block"
+                            id="submitBtn"
+                            aria-label="Acessar conta"
+                        >
+                            ✓ Acessar
+                        </button>
+                    </form>
+
+                    <!-- Link para recuperar senha -->
+                    <div class="auth-link-group">
+                        <a href="#" onclick="handleForgotPassword(); return false;" class="auth-link">
+                            Esqueceu sua senha?
+                        </a>
+                    </div>
+                </main>
+
+                <!-- Footer do Formulário -->
+                <div class="auth-footer">
+                    <p class="auth-footer-text">
+                        Não tem conta?
+                        <a href="cadastro.html" class="auth-footer-link">Crie uma agora</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+
+</html>

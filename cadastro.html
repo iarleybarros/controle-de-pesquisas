@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Cadastro - Sistema de Cadastro de Projetos de Pesquisa">
+    <meta name="author" content="Instituto de Pesquisa">
+    <title>Cadastro - Sistema de Projetos de Pesquisa</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Skip Link para Acessibilidade -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+    <div class="auth-page">
+        <div class="auth-container auth-container-lg">
+            <div class="auth-card">
+                <!-- Header do Formulário -->
+                <div class="auth-header">
+                    <div class="auth-logo" aria-hidden="true">🔬</div>
+                    <h1 class="auth-title">Criar Conta</h1>
+                    <p class="auth-subtitle">Junte-se ao Sistema de Projetos de Pesquisa</p>
+                </div>
+
+                <!-- Conteúdo Principal -->
+                <main id="main-content" class="auth-body">
+                    <!-- Container para alertas -->
+                    <div id="alertContainer" role="alert" aria-live="polite"></div>
+
+                    <!-- Formulário de Cadastro -->
+                    <form id="registerForm" class="auth-form" novalidate>
+                        <!-- Nome Completo -->
+                        <div class="form-group">
+                            <label for="fullName" class="form-label">
+                                Nome Completo <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon" aria-hidden="true">👤</span>
+                                <input
+                                    type="text"
+                                    id="fullName"
+                                    name="fullName"
+                                    class="form-input"
+                                    placeholder="Seu nome completo"
+                                    required
+                                    minlength="3"
+                                    aria-label="Nome Completo"
+                                    autocomplete="name"
+                                >
+                            </div>
+                            <div class="form-error">O nome deve ter pelo menos 3 caracteres</div>
+                        </div>
+
+                        <!-- Instituição -->
+                        <div class="form-group">
+                            <label for="institution" class="form-label">
+                                Instituição <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon" aria-hidden="true">🏢</span>
+                                <input
+                                    type="text"
+                                    id="institution"
+                                    name="institution"
+                                    class="form-input"
+                                    placeholder="Universidade ou Centro de Pesquisa"
+                                    required
+                                    aria-label="Instituição"
+                                    autocomplete="organization"
+                                >
+                            </div>
+                            <div class="form-error">A instituição é obrigatória</div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label for="email" class="form-label">
+                                Email <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon" aria-hidden="true">📧</span>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    class="form-input"
+                                    placeholder="seu.email@instituicao.com"
+                                    required
+                                    aria-label="Email"
+                                    autocomplete="email"
+                                >
+                            </div>
+                            <div class="form-error">Por favor, insira um email válido</div>
+                        </div>
+
+                        <!-- Telefone -->
+                        <div class="form-group">
+                            <label for="phone" class="form-label">
+                                Telefone <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper">
+                                <span class="input-icon" aria-hidden="true">📱</span>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    class="form-input"
+                                    placeholder="(11) 99999-9999"
+                                    required
+                                    aria-label="Telefone"
+                                    autocomplete="tel"
+                                >
+                            </div>
+                            <div class="form-error">Por favor, insira um telefone válido</div>
+                        </div>
+
+                        <!-- Senha -->
+                        <div class="form-group">
+                            <label for="password" class="form-label">
+                                Senha <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper password-wrapper">
+                                <span class="input-icon" aria-hidden="true">🔒</span>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    class="form-input"
+                                    placeholder="Crie uma senha forte"
+                                    required
+                                    minlength="8"
+                                    aria-label="Senha"
+                                    autocomplete="new-password"
+                                >
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="passwordToggle"
+                                    aria-label="Mostrar senha"
+                                    onclick="togglePasswordVisibility('password')"
+                                >
+                                    👁️
+                                </button>
+                            </div>
+                            <div class="form-hint">Mínimo de 8 caracteres. Recomenda-se usar letras, números e símbolos.</div>
+                            <div class="form-error">A senha deve ter pelo menos 8 caracteres</div>
+                        </div>
+
+                        <!-- Confirmar Senha -->
+                        <div class="form-group">
+                            <label for="confirmPassword" class="form-label">
+                                Confirmar Senha <span class="required">*</span>
+                            </label>
+                            <div class="input-icon-wrapper password-wrapper">
+                                <span class="input-icon" aria-hidden="true">🔒</span>
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    name="confirmPassword"
+                                    class="form-input"
+                                    placeholder="Confirme sua senha"
+                                    required
+                                    aria-label="Confirmar Senha"
+                                    autocomplete="new-password"
+                                >
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="confirmPasswordToggle"
+                                    aria-label="Mostrar confirmação de senha"
+                                    onclick="togglePasswordVisibility('confirmPassword')"
+                                >
+                                    👁️
+                                </button>
+                            </div>
+                            <div class="form-error">As senhas não correspondem</div>
+                        </div>
+
+                        <!-- Termos -->
+                        <div class="form-group">
+                            <label class="form-checkbox">
+                                <input type="checkbox" id="terms" name="terms" required>
+                                <span class="form-checkbox-label">
+                                    Concordo com os <a href="#" onclick="handleTerms(); return false;">Termos de Serviço</a>
+                                </span>
+                            </label>
+                            <div class="form-error">Você deve concordar com os Termos de Serviço</div>
+                        </div>
+
+                        <!-- Botão Submit -->
+                        <button
+                            type="submit"
+                            class="btn btn-primary btn-block"
+                            id="submitBtn"
+                            aria-label="Criar conta"
+                        >
+                            ✓ Criar Conta
+                        </button>
+                    </form>
+                </main>
+
+                <!-- Footer do Formulário -->
+                <div class="auth-footer">
+                    <p class="auth-footer-text">
+                        Já tem uma conta?
+                        <a href="login.html" class="auth-footer-link">Acesse aqui</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+
+</html>
